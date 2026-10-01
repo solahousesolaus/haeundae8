@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>해운대 그린시티 8구역 재건축 예비주민대표</title>
+<meta name="robots" content="noindex">
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* Layout: civic notice board — a fixed masthead with four tabs, one column of content
+   at reading width, dense data panels only on the request tab. */
+:root{
+  --bg:#f5f6f2; --surface:#ffffff; --surface-2:#eceee7; --line:#d5d9cf;
+  --fg:#1c221d; --muted:#5b6459; --accent:#1f6b4a; --accent-fg:#ffffff; --accent-soft:#dfeee5;
+  --warn:#b7791f; --warn-soft:#fbf1dc; --ok:#2b7a3c; --ok-soft:#e1f1e3; --bad:#b83a3a; --bad-soft:#f8e3e3;
+  --display:"Gothic A1","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:ui-monospace,"SF Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#151915; --surface:#1d231e; --surface-2:#252c26; --line:#36403a;
+  --fg:#e9ede7; --muted:#a3ada4; --accent:#5cbd8b; --accent-fg:#0f1a14; --accent-soft:#1f3a2c;
+  --warn:#e0a94a; --warn-soft:#3a2f18; --ok:#6fcf86; --ok-soft:#1c3a24; --bad:#ef7d7d; --bad-soft:#3d2020;
+  color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#151915; --surface:#1d231e; --surface-2:#252c26; --line:#36403a;
+  --fg:#e9ede7; --muted:#a3ada4; --accent:#5cbd8b; --accent-fg:#0f1a14; --accent-soft:#1f3a2c;
+  --warn:#e0a94a; --warn-soft:#3a2f18; --ok:#6fcf86; --ok-soft:#1c3a24; --bad:#ef7d7d; --bad-soft:#3d2020;
+  color-scheme:dark }
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--body);font-size:15px;line-height:1.65}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.25}
+p{margin:0}
+a{color:var(--accent)}
+button{font:inherit;cursor:pointer}
+input,textarea,select{font:inherit;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px;width:100%}
+input:focus,textarea:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+textarea{min-height:140px;resize:vertical}
+.wrap{max-width:900px;margin:0 auto;padding-inline:16px}
+
+/* masthead */
+.mast{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:2px solid var(--accent)}
+.mast .wrap{display:flex;flex-direction:column;gap:6px;padding-block:14px 0}
+.eyebrow{font-family:var(--display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.mast h1{font-size:clamp(18px,3.6vw,26px);font-weight:800;letter-spacing:-.01em}
+.mast h1 .bracket{color:var(--accent)}
+nav.tabs{display:flex;gap:2px;overflow-x:auto;margin-top:6px}
+nav.tabs a{flex:0 0 auto;padding:10px 16px;text-decoration:none;color:var(--muted);font-family:var(--display);font-weight:700;font-size:14px;border-bottom:3px solid transparent}
+nav.tabs a[aria-current="page"]{color:var(--accent);border-color:var(--accent)}
+nav.tabs a:hover{color:var(--fg)}
+
+main .wrap{padding-block:28px 60px;display:flex;flex-direction:column;gap:28px}
+section.page[hidden]{display:none!important}
+section.page{display:flex;flex-direction:column;gap:22px}
+.lede{font-size:17px;max-width:65ch;color:var(--fg)}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:20px}
+.panel h2{font-size:18px;margin-bottom:12px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.list{display:flex;flex-direction:column;gap:0}
+.row{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line);min-width:0}
+.row:first-child{border-top:0}
+.row b{font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:6px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-fg);font-weight:700;font-family:var(--display)}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn.danger{background:transparent;border-color:var(--bad);color:var(--bad)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btnrow{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+
+/* stat tiles */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.tile .n{font-family:var(--display);font-size:30px;font-weight:800;font-variant-numeric:tabular-nums;line-height:1.1;color:var(--accent)}
+.tile .l{font-size:12.5px;color:var(--muted);letter-spacing:.02em}
+.live{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--ok);display:inline-block}
+
+/* form */
+form.req{display:grid;gap:14px}
+.f3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media (max-width:560px){.f3{grid-template-columns:1fr}}
+label.lab{display:flex;flex-direction:column;gap:5px;font-size:13px;font-weight:700;color:var(--muted)}
+label.chk{display:flex;gap:10px;align-items:flex-start;font-size:14px;font-weight:400;color:var(--fg)}
+label.chk input{width:18px;height:18px;margin-top:3px;flex:0 0 auto}
+.consent{background:var(--surface-2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--muted);line-height:1.6}
+.msg{border-radius:8px;padding:12px 14px;font-size:14px}
+.msg.ok{background:var(--ok-soft);color:var(--ok)}
+.msg.bad{background:var(--bad-soft);color:var(--bad)}
+.msg.warn{background:var(--warn-soft);color:var(--warn)}
+
+/* post list */
+.posts{display:flex;flex-direction:column;gap:10px}
+.post{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;min-width:0;cursor:pointer}
+.post:hover{border-color:var(--accent)}
+.post .t{font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.post .m{font-size:12.5px;color:var(--muted)}
+.pill{font-family:var(--display);font-size:12px;font-weight:700;padding:3px 9px;border-radius:99px;white-space:nowrap}
+.pill.s0{background:var(--surface-2);color:var(--muted)}
+.pill.s1{background:var(--warn-soft);color:var(--warn)}
+.pill.s2{background:var(--ok-soft);color:var(--ok)}
+.num{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.detail{background:var(--surface);border:1px solid var(--accent);border-radius:10px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.detail .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--muted)}
+.body{white-space:pre-wrap;line-height:1.7}
+.reply{border-left:3px solid var(--accent);background:var(--accent-soft);padding:10px 14px;border-radius:0 8px 8px 0}
+.reply .who{font-size:12px;font-weight:700;color:var(--accent);font-family:var(--display)}
+.notice{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:flex;flex-direction:column;gap:6px}
+.notice.pinned{border-color:var(--accent)}
+.notice h3{font-size:16px}
+.empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:10px}
+.faq{border-top:1px solid var(--line);padding:12px 0;display:flex;flex-direction:column;gap:6px}
+.faq:first-child{border-top:0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;gap:10px;align-items:flex-start}
+.faq summary::before{content:"Q";font-family:var(--display);font-weight:800;color:var(--accent);flex:0 0 auto}
+.faq summary::-webkit-details-marker{display:none}
+.faq .a{display:flex;gap:10px;padding-left:0;margin-top:4px}
+.faq .a::before{content:"A";font-family:var(--display);font-weight:800;color:var(--muted);flex:0 0 auto}
+.faq .a .body{flex:1;min-width:0}
+.faq .when{font-size:12px;color:var(--muted);padding-left:22px}
+.draft{background:var(--surface-2);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
+.draft textarea,.draft input{background:var(--surface)}
+.tag{display:inline-block;font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);padding:2px 7px;border-radius:4px;vertical-align:middle}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--display);font-size:12.5px;color:var(--muted);font-weight:700}
+.scroll{overflow-x:auto}
+footer{border-top:1px solid var(--line);color:var(--muted);font-size:12.5px}
+footer .wrap{padding-block:18px 30px;display:flex;flex-direction:column;gap:4px}
+@media (prefers-reduced-motion:no-preference){.post,.btn{transition:border-color .15s,background .15s}}
+</style>
+
+</head>
+<body>
+<header class="mast">
+  <div class="wrap">
+    <div class="eyebrow">Haeundae Green City · 특별정비예정 8구역</div>
+    <h1><span class="bracket">[</span>해운대 그린시티 8구역 재건축 예비주민대표<span class="bracket">]</span></h1>
+    <nav class="tabs" aria-label="주요 메뉴">
+      <a href="#home" data-tab="home">HOME</a>
+      <a href="#about" data-tab="about">소개</a>
+      <a href="#notice" data-tab="notice">공지사항</a>
+      <a href="#request" data-tab="request">주민요청</a>
+    </nav>
+  </div>
+</header>
+
+<main><div class="wrap">
+
+<!-- ============ HOME ============ -->
+<section class="page" id="page-home">
+  <p class="lede">해운대 그린시티 특별정비예정 8구역(한일·신성·대창·코오롱아파트) 재건축을 준비하는 예비주민대표단의 공식 소통 창구입니다. 진행 상황을 공지하고, 주민 여러분의 질문과 지적사항을 접수해 답변합니다.</p>
+  <div class="stats" id="home-stats">
+    <div class="tile"><div class="n" data-stat="total">–</div><div class="l">접수된 주민 문의</div></div>
+    <div class="tile"><div class="n" data-stat="closed">–</div><div class="l">처리완료</div></div>
+    <div class="tile"><div class="n" data-stat="avg">–</div><div class="l">첫 답변까지 평균 (시간)</div></div>
+    <div class="tile"><div class="n" data-stat="rate">–</div><div class="l">3일 이내 답변 비율</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h2>이 사이트에서 할 수 있는 것</h2>
+      <div class="list">
+        <div class="row"><span><b>소개</b> — 주민대표단 구성 취지, 구성원, 운영규정 요지</span></div>
+        <div class="row"><span><b>공지사항</b> — 동의서 접수, 설명회, 승인 절차 등 공식 안내</span></div>
+        <div class="row"><span><b>주민요청</b> — 질문·지적사항 접수와 답변. 내용은 게시글 비밀번호를 아는 사람과 관리자만 봅니다.</span></div>
+      </div>
+    </div>
+    <div class="panel">
+      <h2>최근 공지</h2>
+      <div class="list" id="home-notices"><div class="muted small">아직 등록된 공지가 없습니다.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="page" id="page-about" hidden>
+  <div class="panel">
+    <h2>예비주민대표단이란</h2>
+    <p>「노후계획도시 정비 및 지원에 관한 특별법」 제18조의2에 따라, 특별정비예정구역의 토지등소유자 과반수 동의를 얻어 부산광역시 승인을 받는 주민대표기구입니다. 특별정비계획 수립, 사업추진 방식 검토, 특별정비구역 지정 제안 등 정비사업 초기 준비를 맡습니다. 8구역은 지난해 선도지구 공모에서 최종 선정되지 못했으나, 2026년부터 주민제안 방식의 특별정비구역 지정이 가능해짐에 따라 주민대표단을 중심으로 다시 준비하고 있습니다.</p>
+  </div>
+  <div class="grid2">
+    <div class="panel"><h2>구성 요건</h2>
+      <div class="list">
+        <div class="row"><span>구성 인원</span><b>대표 1명·감사 포함 5~25명</b></div>
+        <div class="row"><span>동의 요건</span><b>토지등소유자 과반수</b></div>
+        <div class="row"><span>승인권자</span><b>부산광역시</b></div>
+        <div class="row"><span>해산 시점</span><b>조합·주민대표회의 구성 또는 신탁 사업시행자 지정 시</b></div>
+      </div>
+    </div>
+    <div class="panel"><h2>승인 절차</h2>
+      <div class="list">
+        <div class="row"><span class="num">1</span><span>운영규정 마련</span></div>
+        <div class="row"><span class="num">2</span><span>주민대표단 구성</span></div>
+        <div class="row"><span class="num">3</span><span>토지등소유자 과반수 동의</span></div>
+        <div class="row"><span class="num">4</span><span>주민대표단 승인 신청</span></div>
+        <div class="row"><span class="num">5</span><span>부산광역시 승인</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <h2>예비주민대표단 구성원 (14명)</h2>
+    <div class="scroll"><table>
+      <thead><tr><th>직책</th><th>성명</th><th>단지</th><th>주요 경력</th></tr></thead>
+      <tbody>
+        <tr><td>대표</td><td>노주석</td><td>한일</td><td>8구역 선도지구 준비 위원장 · 시행사업 30년</td></tr>
+        <tr><td>감사</td><td>여무석</td><td>신성</td><td>건설사 현장소장 32년 · 신성 입대위 감사</td></tr>
+        <tr><td>감사</td><td>황규주</td><td>대창</td><td>현 대창 입대위 감사</td></tr>
+        <tr><td>단원</td><td>윤명섭</td><td>한일</td><td>타구역 재건축 조합임원 경험 · 건축업</td></tr>
+        <tr><td>단원</td><td>황영규</td><td>한일</td><td>국방부 서기관 퇴직 · 부동산학 석사</td></tr>
+        <tr><td>단원</td><td>조현철</td><td>신성</td><td>신성 입대위 회장</td></tr>
+        <tr><td>단원</td><td>최원태</td><td>코오롱</td><td>8구역 미디어 홍보·오픈채팅 운영</td></tr>
+        <tr><td>단원</td><td>임창문</td><td>대창</td><td>선도지구 준비위원</td></tr>
+        <tr><td>단원</td><td>정원식</td><td>한일</td><td>전 한일 입대위 동대표·총무</td></tr>
+        <tr><td>단원</td><td>김홍석</td><td>코오롱</td><td>코오롱 선도지구 준비위 총무</td></tr>
+        <tr><td>단원</td><td>류보라</td><td>코오롱</td><td>선도지구 동의서 징구 관리</td></tr>
+        <tr><td>단원</td><td>지화경</td><td>코오롱</td><td>공인중개사 20년</td></tr>
+        <tr><td>단원</td><td>박하정</td><td>코오롱</td><td>공인중개사 · 동의서 작성·홍보</td></tr>
+        <tr><td>단원</td><td>전홍재</td><td>삼정그린코아</td><td>전자시스템 대표 · 인근 입대위 감사</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted" style="margin-top:10px">출처: 예비주민대표단 구성동의 안내문(2026. 9). 사무소: 해운대구 좌동 1271 신성아파트 관리사무소.</p>
+  </div>
+  <div class="panel">
+    <h2>운영규정 요지</h2>
+    <div class="list">
+      <div class="row"><span>회의 의결</span><span>재적단원 과반수 출석, 출석단원 과반수 찬성</span></div>
+      <div class="row"><span>의결 공개</span><span>의결일로부터 14일 이내 게시판·SNS 등에 공개</span></div>
+      <div class="row"><span>지출 공개</span><span>지출내역서를 분기별 게시, 토지등소유자 열람 가능</span></div>
+      <div class="row"><span>재원</span><span>주민 납부 경비, 금융기관·정비사업전문관리업자 차입금, 융자금 등</span></div>
+      <div class="row"><span>자료 열람</span><span>운영규정·용역 선정계약서·회의록·회계감사보고서·입출금 내역·토지등소유자 명부는 서면 요청 시 제공</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ NOTICE ============ -->
+<section class="page" id="page-notice" hidden>
+  <div id="notice-admin" hidden class="panel">
+    <h2>공지 등록 <span class="tag">관리자</span></h2>
+    <form id="notice-form" class="req">
+      <label class="lab">제목<input id="n-title" required maxlength="80"></label>
+      <label class="lab">내용<textarea id="n-body" required maxlength="4000"></textarea></label>
+      <label class="chk"><input type="checkbox" id="n-pinned">상단 고정</label>
+      <div class="btnrow"><button class="btn" type="submit">공지 등록</button><span id="n-msg" class="small muted"></span></div>
+    </form>
+  </div>
+  <div id="notice-list" class="posts"><div class="empty">등록된 공지사항이 없습니다. 동의서 접수·설명회 일정 등이 여기에 올라옵니다.</div></div>
+</section>
+
+<!-- ============ REQUEST ============ -->
+<section class="page" id="page-request" hidden>
+  <div>
+    <p class="live"><i></i> 실제 접수된 주민 요청을 기준으로 표시합니다.</p>
+    <div class="stats" style="margin-top:10px">
+      <div class="tile"><div class="n" data-stat="total">–</div><div class="l">접수된 주민 문의 (건)</div></div>
+      <div class="tile"><div class="n" data-stat="closed">–</div><div class="l">처리완료 (건)</div></div>
+      <div class="tile"><div class="n" data-stat="avg">–</div><div class="l">첫 답변까지 걸린 평균 (시간)</div></div>
+      <div class="tile"><div class="n" data-stat="rate">–</div><div class="l">3일 이내 답변 비율 (%)</div></div>
+    </div>
+  </div>
+
+  <div id="req-gate" class="msg warn" hidden></div>
+
+  <div class="panel" id="faq-panel">
+    <div class="btnrow" style="justify-content:space-between;margin-bottom:6px"><h2 style="margin:0">자주 묻는 질문 (FAQ)</h2><span class="small muted">답변된 문의를 매주 정리해 올립니다</span></div>
+    <div id="faq-list" class="list"><div class="muted small">아직 정리된 FAQ가 없습니다.</div></div>
+  </div>
+
+  <div id="faq-admin" class="panel" hidden>
+    <h2>FAQ 초안 검토 <span class="tag">관리자</span></h2>
+    <p class="small muted" style="margin-bottom:12px">매주 자동 정리된 초안입니다. 내용을 확인한 뒤 ‘게시’를 누르면 주민에게 공개됩니다. 초안은 관리자만 볼 수 있습니다.</p>
+    <div id="faq-drafts" class="list"><div class="muted small">검토할 초안이 없습니다.</div></div>
+    <details style="margin-top:14px"><summary class="small" style="cursor:pointer;color:var(--accent);font-weight:700">FAQ 직접 추가</summary>
+      <form id="faq-form" class="req" style="margin-top:10px">
+        <label class="lab">질문<input id="f-q" required maxlength="200"></label>
+        <label class="lab">답변<textarea id="f-a" required maxlength="4000"></textarea></label>
+        <div class="btnrow"><button class="btn" type="submit">바로 게시</button><span id="f-msg" class="small muted"></span></div>
+      </form></details>
+  </div>
+
+  <div class="panel" id="req-form-panel">
+    <h2>질문·지적사항 접수</h2>
+    <p class="small muted" style="margin-bottom:14px">목록에는 제목·단지·처리 상태만 공개됩니다. 내용은 <b>게시글 비밀번호를 아는 사람과 관리자만</b> 볼 수 있습니다.</p>
+    <form id="req-form" class="req">
+      <div class="f3">
+        <label class="lab">실명<input id="r-name" required maxlength="20" placeholder="홍길동" autocomplete="name"></label>
+        <label class="lab">단지<select id="r-complex" required>
+          <option value="">선택</option><option>한일아파트</option><option>신성아파트</option><option>대창아파트</option><option>코오롱아파트</option><option>상가</option><option>기타</option></select></label>
+        <label class="lab">동·호수<input id="r-unit" required maxlength="20" placeholder="예: 111동 2101호"></label>
+      </div>
+      <label class="lab">제목<input id="r-title" required maxlength="80"></label>
+      <label class="lab">내용<textarea id="r-body" required maxlength="4000" placeholder="질문이나 지적사항을 구체적으로 적어 주세요."></textarea></label>
+      <label class="lab">게시글 비밀번호<input id="r-pw" type="password" required minlength="4" maxlength="20" autocomplete="new-password" placeholder="4자 이상 · 이 비밀번호로 글을 열어 봅니다"></label>
+      <div class="consent">
+        <b>개인정보 수집·이용 안내</b><br>
+        수집 항목: 실명, 단지, 동·호수, 문의 내용 · 목적: 주민 문의 접수 및 답변, 토지등소유자 확인 · 보유 기간: 주민대표단 해산 시까지(이후 후속 사업주체 인계 또는 파기). 동의를 거부할 수 있으나 거부 시 문의 접수가 제한됩니다.
+      </div>
+      <label class="chk"><input type="checkbox" id="r-consent" required>위 개인정보 수집·이용에 동의합니다. (필수)</label>
+      <div class="btnrow"><button class="btn" type="submit" id="r-submit">접수하기</button><span id="r-msg" class="small muted"></span></div>
+    </form>
+  </div>
+
+  <div id="list-wrap">
+    <div class="btnrow" style="justify-content:space-between;margin-bottom:10px"><h2 style="font-size:18px">접수된 문의</h2><span class="small muted" id="list-count"></span></div>
+    <div id="post-list" class="posts"><div class="empty">접수된 글이 없습니다.</div></div>
+  </div>
+
+  <div id="detail" class="detail" hidden></div>
+</section>
+
+</div></main>
+<footer><div class="wrap">
+  <span>해운대 특별정비예정 8구역 예비주민대표단 · 부산광역시 해운대구 좌동 1271 신성아파트 관리사무소</span>
+  <span>문의: 010-2554-8087 (노주석 예비대표)</span>
+  <span><a href="#" id="admin-link">관리자 로그인</a> <span id="admin-who" class="small"></span></span>
+  <form id="admin-login" class="btnrow" hidden><input id="a-email" type="email" placeholder="관리자 이메일" style="max-width:220px" autocomplete="username"><input id="a-pw" type="password" placeholder="비밀번호" style="max-width:160px" autocomplete="current-password"><button class="btn" type="submit">로그인</button><span id="a-msg" class="small muted"></span></form>
+</div></footer>
+
+
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+<script>
+// Firebase 프로젝트 haeundae8 — 웹 앱 설정 (공개용 식별자이며 비밀값이 아닙니다. 권한은 Firestore 규칙이 결정합니다)
+window.FIREBASE_CONFIG = {
+  apiKey: "AIzaSyD1ykLvVBTlUPmG2iZrslqSsRjk-GupoaA",
+  authDomain: "haeundae8.firebaseapp.com",
+  projectId: "haeundae8",
+  storageBucket: "haeundae8.firebasestorage.app",
+  messagingSenderId: "149587670429",
+  appId: "1:149587670429:web:e3e848e7c11f302fc5eb74"
+};
+// 관리자로 인정할 이메일 (Firestore 규칙의 isAdmin() 목록과 반드시 같게 유지)
+window.ADMIN_EMAILS = ["solahousesolaus@gmail.com"];
+</script>
+<script>
+(function(){
+  const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+  const STATUS=["접수","답변중","처리완료"];
+  const state={db:null,uid:null,admin:false,email:null,stats:[],posts:[],notices:[],faq:[],drafts:[],open:null};
+  const unsub={};
+
+  /* ---------- tabs ---------- */
+  function showTab(){
+    let t=(location.hash||"#home").slice(1);
+    if(!["home","about","notice","request"].includes(t)) t="home";
+    $$("section.page").forEach(s=>s.hidden=(s.id!=="page-"+t));
+    $$("nav.tabs a").forEach(a=>{ if(a.dataset.tab===t) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+    window.scrollTo({top:0});
+  }
+  window.addEventListener("hashchange",showTab); showTab();
+
+  /* ---------- helpers ---------- */
+  const fmt=ms=>{ const d=new Date(ms); const p=n=>String(n).padStart(2,"0"); return `${d.getFullYear()}.${p(d.getMonth()+1)}.${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`; };
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  async function sha(s){ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode("hd8:"+s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }
+  const pill=s=>`<span class="pill s${STATUS.indexOf(s)<0?0:STATUS.indexOf(s)}">${esc(s)}</span>`;
+  function say(el,text,cls){ if(!el) return; el.textContent=text; el.className="small "+(cls||"muted"); }
+  const docs=snap=>snap.docs.map(d=>({...d.data(),id:d.id}));
+
+  /* ---------- stats ---------- */
+  function renderStats(){
+    const s=state.stats, total=s.length, closed=s.filter(x=>x.closedAt).length;
+    const fr=s.filter(x=>x.firstReplyAt);
+    const avg=fr.length? (fr.reduce((a,x)=>a+(x.firstReplyAt-x.createdAt),0)/fr.length/36e5):null;
+    const within=s.filter(x=>x.firstReplyAt && x.firstReplyAt-x.createdAt<=72*36e5).length;
+    const rate=total? Math.round(within/total*100):null;
+    const v={total:String(total),closed:String(closed),avg:avg==null?"–":(avg<10?avg.toFixed(1):Math.round(avg)),rate:rate==null?"–":rate+"%"};
+    $$("[data-stat]").forEach(el=>el.textContent=v[el.dataset.stat]);
+  }
+  renderStats();
+
+  /* ---------- notices ---------- */
+  function renderNotices(){
+    const list=$("#notice-list"), home=$("#home-notices");
+    if(!state.notices.length){ list.innerHTML='<div class="empty">등록된 공지사항이 없습니다. 동의서 접수·설명회 일정 등이 여기에 올라옵니다.</div>'; home.innerHTML='<div class="muted small">아직 등록된 공지가 없습니다.</div>'; return; }
+    const sorted=[...state.notices].sort((a,b)=>(b.pinned?1:0)-(a.pinned?1:0)||b.createdAt-a.createdAt);
+    list.innerHTML=sorted.map(n=>`<article class="notice${n.pinned?' pinned':''}">
+      <div class="btnrow" style="justify-content:space-between"><h3>${n.pinned?'<span class="tag">고정</span> ':''}${esc(n.title)}</h3><span class="small muted">${fmt(n.createdAt)}</span></div>
+      <div class="body">${esc(n.body)}</div>
+      ${state.admin?`<div class="btnrow"><button class="btn danger" data-del-notice="${n.id}" type="button">삭제</button></div>`:''}
+    </article>`).join("");
+    home.innerHTML=sorted.slice(0,4).map(n=>`<div class="row"><a href="#notice">${esc(n.title)}</a><span class="small muted">${fmt(n.createdAt).slice(0,10)}</span></div>`).join("");
+  }
+  renderNotices();
+
+  /* ---------- FAQ ---------- */
+  function renderFaq(){
+    const el=$("#faq-list"), items=[...state.faq].sort((a,b)=>b.publishedAt-a.publishedAt);
+    el.innerHTML=items.length? items.map(f=>`<details class="faq"><summary>${esc(f.q)}</summary><div class="a"><div class="body">${esc(f.a)}</div></div><div class="when">${f.week?esc(f.week)+' 정리':''}${state.admin?` · <button class="btn danger" style="padding:2px 8px;font-size:12px" type="button" data-faq-del="${f.id}">삭제</button>`:''}</div></details>`).join("")
+      :'<div class="muted small">아직 정리된 FAQ가 없습니다.</div>';
+  }
+  function renderDrafts(){
+    const el=$("#faq-drafts"), items=[...state.drafts].sort((a,b)=>b.createdAt-a.createdAt);
+    el.innerHTML=items.length? items.map(d=>`<div class="draft" data-draft="${d.id}">
+      <div class="small muted">${d.week?esc(d.week)+' · ':''}원문 ${(d.sourceIds||[]).length}건 기준</div>
+      <input value="${esc(d.q)}" data-dq maxlength="200">
+      <textarea data-da>${esc(d.a)}</textarea>
+      <div class="btnrow"><button class="btn" type="button" data-draft-pub="${d.id}">게시</button><button class="btn danger" type="button" data-draft-del="${d.id}">버리기</button></div></div>`).join("")
+      :'<div class="muted small">검토할 초안이 없습니다.</div>';
+  }
+  renderFaq(); renderDrafts();
+
+  /* ---------- posts (anonymous board) ---------- */
+  const mask=n=>{ n=String(n||""); if(n.length<=1) return n; if(n.length===2) return n[0]+"*"; return n[0]+"*".repeat(n.length-2)+n[n.length-1]; };
+  function postCard(p,i){
+    return `<div class="post" data-open="${p.id}" role="button" tabindex="0">
+      <span class="num">${String(state.posts.length-i).padStart(2,"0")}</span>
+      <div style="min-width:0"><div class="t">🔒 ${esc(p.title)}</div><div class="m">${esc(p.complex)} · ${esc(p.nameMasked)} · ${fmt(p.createdAt)}${(p.replyCount||0)?` · 답변 ${p.replyCount}`:''}</div></div>
+      ${pill(p.status)}</div>`;
+  }
+  function renderList(){ $("#post-list").innerHTML=state.posts.length? state.posts.map(postCard).join(""):'<div class="empty">접수된 글이 없습니다.</div>'; $("#list-count").textContent=state.posts.length?`${state.posts.length}건`:""; }
+  function findPost(id){ return state.posts.find(p=>p.id===id); }
+
+  async function openSecret(p,pw){
+    // 비밀글 문서 id = 비밀번호 해시. 해시를 모르면 문서를 찾을 수 없다(목록 조회는 관리자만 허용).
+    let snap;
+    if(state.admin && pw==null){ const q=await state.db.collection("posts").doc(p.id).collection("secret").limit(1).get(); snap=q.docs[0]; }
+    else { snap=await state.db.collection("posts").doc(p.id).collection("secret").doc(await sha(pw)).get(); if(!snap.exists) snap=null; }
+    return snap? {...snap.data(),hash:snap.id}:null;
+  }
+  function renderDetail(p,secret){
+    const d=$("#detail"); d.hidden=false; state.open={...p,secret};
+    if(!secret){
+      d.innerHTML=`<h2 style="font-size:17px">${esc(p.title)}</h2><p class="small muted">${esc(p.complex)} · ${esc(p.nameMasked)} · ${fmt(p.createdAt)}</p><p class="small muted">내용을 보려면 접수 시 입력한 게시글 비밀번호를 입력하세요.</p>
+        <form id="pw-form" class="btnrow"><input id="pw-in" type="password" style="max-width:240px" placeholder="게시글 비밀번호" autocomplete="off"><button class="btn" type="submit">열기</button><button class="btn ghost" type="button" data-close>닫기</button><span id="pw-msg" class="small muted"></span></form>`;
+      d.scrollIntoView({behavior:"smooth",block:"start"}); return;
+    }
+    const replies=(secret.replies||[]).map(r=>`<div class="reply"><div class="who">예비주민대표단 답변 · ${fmt(r.at)}</div><div class="body">${esc(r.text)}</div></div>`).join("");
+    d.innerHTML=`<div class="btnrow" style="justify-content:space-between"><h2 style="font-size:17px">${esc(p.title)}</h2>${pill(p.status)}</div>
+      <div class="meta"><span>${esc(secret.name)}</span><span>${esc(p.complex)} ${esc(secret.unit)}</span><span>접수 ${fmt(p.createdAt)}</span></div>
+      <div class="body">${esc(secret.body)}</div>
+      ${replies||'<p class="small muted">아직 답변이 등록되지 않았습니다.</p>'}
+      ${state.admin?`<form id="reply-form" class="req" style="border-top:1px solid var(--line);padding-top:14px">
+        <label class="lab">답변 <span class="tag">관리자</span><textarea id="reply-text" placeholder="답변 내용"></textarea></label>
+        <div class="f3"><label class="lab">처리 상태<select id="reply-status">${STATUS.map(s=>`<option${s===p.status?' selected':''}>${s}</option>`).join("")}</select></label></div>
+        <div class="btnrow"><button class="btn" type="submit">답변 저장</button><button class="btn danger" type="button" data-delete>글 삭제</button><button class="btn ghost" type="button" data-close>닫기</button><span id="reply-msg" class="small muted"></span></div></form>`
+      :`<div class="btnrow"><button class="btn ghost" type="button" data-close>닫기</button></div>`}`;
+    d.scrollIntoView({behavior:"smooth",block:"start"});
+  }
+
+  document.addEventListener("click",async e=>{
+    const open=e.target.closest("[data-open]");
+    if(open){ const p=findPost(open.dataset.open); if(!p) return; if(state.admin){ try{ renderDetail(p,await openSecret(p,null)); }catch(_){ renderDetail(p,null); } } else renderDetail(p,null); return; }
+    if(e.target.closest("[data-close]")){ $("#detail").hidden=true; state.open=null; return; }
+    if(!state.db||!state.admin) return;
+    if(e.target.closest("[data-delete]")&&state.open){ await deletePost(state.open); return; }
+    const dn=e.target.closest("[data-del-notice]"); if(dn){ await state.db.collection("notices").doc(dn.dataset.delNotice).delete().catch(()=>{}); return; }
+    const pub=e.target.closest("[data-draft-pub]");
+    if(pub){ const id=pub.dataset.draftPub, box=pub.closest("[data-draft]"), d=state.drafts.find(x=>x.id===id);
+      const q=box.querySelector("[data-dq]").value.trim(), a=box.querySelector("[data-da]").value.trim(); if(!q||!a) return; pub.disabled=true;
+      try{ await state.db.collection("faq").doc(id).set({q,a,week:d.week||"",sourceIds:d.sourceIds||[],publishedAt:Date.now()}); await state.db.collection("faq_drafts").doc(id).delete(); }catch(_){ pub.disabled=false; } return; }
+    const dd=e.target.closest("[data-draft-del]"); if(dd){ await state.db.collection("faq_drafts").doc(dd.dataset.draftDel).delete().catch(()=>{}); return; }
+    const fd=e.target.closest("[data-faq-del]"); if(fd){ await state.db.collection("faq").doc(fd.dataset.faqDel).delete().catch(()=>{}); }
+  });
+  document.addEventListener("keydown",e=>{ if(e.key==="Enter"&&e.target.matches("[data-open]")) e.target.click(); });
+  document.addEventListener("submit",async e=>{
+    if(e.target.id==="pw-form"){ e.preventDefault(); const p=state.open, m=$("#pw-msg"); say(m,"확인 중…");
+      try{ const sec=await openSecret(p,$("#pw-in").value); if(sec) renderDetail(p,sec); else say(m,"비밀번호가 맞지 않습니다.","bad"); }catch(_){ say(m,"확인하지 못했습니다. 잠시 후 다시 시도해 주세요.","bad"); } }
+    if(e.target.id==="reply-form"){ e.preventDefault(); await saveReply(); }
+  });
+
+  /* ---------- writes ---------- */
+  async function submitRequest(e){
+    e.preventDefault(); const m=$("#r-msg"), btn=$("#r-submit");
+    if(!state.db||!state.uid){ say(m,"서버에 연결되지 않았습니다. 잠시 후 다시 시도해 주세요.","bad"); return; }
+    if(!$("#r-consent").checked){ say(m,"개인정보 수집·이용에 동의해야 접수할 수 있습니다.","bad"); return; }
+    btn.disabled=true; say(m,"접수 중…");
+    try{
+      const now=Date.now(), ref=state.db.collection("posts").doc(), name=$("#r-name").value.trim(), complex=$("#r-complex").value, hash=await sha($("#r-pw").value);
+      await ref.set({title:$("#r-title").value.trim(),complex,nameMasked:mask(name),createdAt:now,status:"접수",replyCount:0,consent:true});
+      await ref.collection("secret").doc(hash).set({name,unit:$("#r-unit").value.trim(),body:$("#r-body").value.trim(),replies:[],consentAt:now});
+      await state.db.collection("stats").doc(ref.id).set({complex,createdAt:now,firstReplyAt:null,closedAt:null,status:"접수"});
+      e.target.reset(); say(m,"접수되었습니다. 아래 목록에서 비밀번호로 열어 볼 수 있습니다.","ok");
+    }catch(err){ console.error(err); say(m,"접수하지 못했습니다. 잠시 후 다시 시도해 주세요.","bad"); }
+    btn.disabled=false;
+  }
+  $("#req-form").addEventListener("submit",submitRequest);
+
+  async function deletePost(p){
+    const m=$("#reply-msg"); if(m&&m.dataset.armed!=="1"){ m.dataset.armed="1"; say(m,"한 번 더 누르면 삭제됩니다.","warn"); return; }
+    try{ const ref=state.db.collection("posts").doc(p.id); if(p.secret) await ref.collection("secret").doc(p.secret.hash).delete(); await ref.delete(); await state.db.collection("stats").doc(p.id).delete().catch(()=>{}); $("#detail").hidden=true; state.open=null; }
+    catch(err){ say(m,"삭제하지 못했습니다.","bad"); }
+  }
+
+  async function saveReply(){
+    const p=state.open, m=$("#reply-msg"), text=$("#reply-text").value.trim(), status=$("#reply-status").value, now=Date.now();
+    try{
+      const ref=state.db.collection("posts").doc(p.id), sref=ref.collection("secret").doc(p.secret.hash);
+      const replies=[...(p.secret.replies||[])]; if(text) replies.push({at:now,text});
+      await sref.update({replies}); await ref.update({status,replyCount:replies.length});
+      const st=state.db.collection("stats").doc(p.id), ss=await st.get(), sd=ss.data()||{complex:p.complex,createdAt:p.createdAt,firstReplyAt:null,closedAt:null};
+      await st.set({...sd,status,firstReplyAt:sd.firstReplyAt||(text?now:null),closedAt:status==="처리완료"?(sd.closedAt||now):null});
+      say(m,"저장되었습니다.","ok"); renderDetail({...p,status},{...p.secret,replies});
+    }catch(err){ console.error(err); say(m,"저장하지 못했습니다.","bad"); }
+  }
+
+  $("#notice-form").addEventListener("submit",async e=>{
+    e.preventDefault(); const m=$("#n-msg");
+    try{ await state.db.collection("notices").add({title:$("#n-title").value.trim(),body:$("#n-body").value.trim(),pinned:$("#n-pinned").checked,createdAt:Date.now()}); e.target.reset(); say(m,"등록되었습니다.","ok"); }
+    catch(err){ say(m,"등록하지 못했습니다.","bad"); }
+  });
+  $("#faq-form").addEventListener("submit",async e=>{
+    e.preventDefault(); const m=$("#f-msg");
+    try{ await state.db.collection("faq").add({q:$("#f-q").value.trim(),a:$("#f-a").value.trim(),week:"",sourceIds:[],publishedAt:Date.now()}); e.target.reset(); say(m,"게시되었습니다.","ok"); }
+    catch(_){ say(m,"게시하지 못했습니다.","bad"); }
+  });
+
+  /* ---------- admin login ---------- */
+  $("#admin-link").addEventListener("click",async e=>{
+    e.preventDefault();
+    if(state.email){ await firebase.auth().signOut(); await firebase.auth().signInAnonymously().catch(()=>{}); return; }
+    $("#admin-login").hidden=!$("#admin-login").hidden;
+  });
+  $("#admin-login").addEventListener("submit",async e=>{
+    e.preventDefault(); const m=$("#a-msg");
+    try{ await firebase.auth().signInWithEmailAndPassword($("#a-email").value.trim(),$("#a-pw").value); $("#admin-login").hidden=true; e.target.reset(); say(m,""); }
+    catch(err){ say(m,"로그인하지 못했습니다. 이메일·비밀번호를 확인하세요.","bad"); }
+  });
+
+  function applyRole(){
+    const admin=state.admin;
+    $("#notice-admin").hidden=!admin; $("#faq-admin").hidden=!admin;
+    $("#admin-link").textContent=admin?"관리자 로그아웃":"관리자 로그인";
+    $("#admin-who").textContent=admin?`(${state.email})`:"";
+    Object.values(unsub).forEach(u=>u&&u()); for(const k in unsub) delete unsub[k];
+    const db=state.db;
+    unsub.stats=db.collection("stats").onSnapshot(s=>{ state.stats=docs(s); renderStats(); },console.error);
+    unsub.notices=db.collection("notices").onSnapshot(s=>{ state.notices=docs(s); renderNotices(); },console.error);
+    unsub.faq=db.collection("faq").onSnapshot(s=>{ state.faq=docs(s); renderFaq(); },console.error);
+    unsub.posts=db.collection("posts").orderBy("createdAt","desc").onSnapshot(s=>{ state.posts=docs(s); renderList(); },console.error);
+    if(admin) unsub.drafts=db.collection("faq_drafts").onSnapshot(s=>{ state.drafts=docs(s); renderDrafts(); },console.error); else state.drafts=[];
+    renderDrafts();
+  }
+
+  /* ---------- boot ---------- */
+  (async function boot(){
+    if(!window.FIREBASE_CONFIG||!FIREBASE_CONFIG.apiKey||FIREBASE_CONFIG.apiKey.startsWith("YOUR")){
+      const g=$("#req-gate"); g.hidden=false; g.textContent="config.js에 Firebase 설정이 아직 입력되지 않았습니다. (배포 안내 README 참고)"; return;
+    }
+    firebase.initializeApp(FIREBASE_CONFIG);
+    state.db=firebase.firestore();
+    firebase.auth().onAuthStateChanged(async u=>{
+      if(!u){ await firebase.auth().signInAnonymously().catch(err=>{ const g=$("#req-gate"); g.hidden=false; g.textContent="익명 로그인이 꺼져 있어 접수 기능을 쓸 수 없습니다. Firebase 콘솔에서 익명 인증을 켜 주세요."; }); return; }
+      state.uid=u.uid; state.email=u.email||null;
+      state.admin=!!(u.email && (window.ADMIN_EMAILS||[]).map(x=>x.toLowerCase()).includes(u.email.toLowerCase()));
+      applyRole();
+    });
+  })();
+})();
+</script>
+</body>
+</html>
