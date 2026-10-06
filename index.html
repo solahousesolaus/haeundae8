@@ -122,6 +122,18 @@ label.chk input{width:18px;height:18px;margin-top:3px;flex:0 0 auto}
 .faq .when{font-size:12px;color:var(--muted);padding-left:22px}
 .draft{background:var(--surface-2);border-radius:8px;padding:12px 14px;display:flex;flex-direction:column;gap:8px}
 .draft textarea,.draft input{background:var(--surface)}
+/* popups */
+.pop-overlay{position:fixed;inset:0;z-index:50;background:rgba(10,14,11,.55);display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:center;gap:16px;padding:calc(env(safe-area-inset-top,0px) + 24px) 16px 24px;overflow-y:auto}
+.pop{background:var(--surface);border-radius:10px;overflow:hidden;width:min(360px,100%);box-shadow:0 12px 40px rgba(0,0,0,.35);display:flex;flex-direction:column}
+.pop img{display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;background:var(--surface-2)}
+.pop .pop-title{padding:10px 14px 0;font-weight:700;font-family:var(--display);font-size:15px}
+.pop .pop-foot{display:flex;border-top:1px solid var(--line);margin-top:10px}
+.pop .pop-foot button{flex:1;background:none;border:0;padding:12px 10px;font-size:13.5px;color:var(--muted);font-family:var(--body)}
+.pop .pop-foot button+button{border-left:1px solid var(--line);color:var(--fg);font-weight:700}
+.pop .pop-foot button:hover{background:var(--surface-2)}
+.pop-admin-item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
+.pop-admin-item:first-child{border-top:0}
+.pop-admin-item img{width:64px;height:64px;object-fit:cover;border-radius:6px;background:var(--surface-2)}
 .tag{display:inline-block;font-family:var(--display);font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--accent);border:1px solid var(--accent);padding:2px 7px;border-radius:4px;vertical-align:middle}
 table{border-collapse:collapse;width:100%;font-size:14px}
 th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -245,6 +257,17 @@ footer .wrap{padding-block:18px 30px;display:flex;flex-direction:column;gap:4px}
       <div class="btnrow"><button class="btn" type="submit">공지 등록</button><span id="n-msg" class="small muted"></span></div>
     </form>
   </div>
+  <div id="popup-admin" hidden class="panel">
+    <h2>팝업 이미지 <span class="tag">관리자</span></h2>
+    <p class="small muted" style="margin-bottom:12px">사이트 접속 시 최신 3개가 팝업으로 뜹니다. 새로 올리면 가장 오래된 것은 자동으로 빠집니다. 이미지는 가로 1080px 이하로 줄여 저장됩니다.</p>
+    <form id="popup-form" class="req">
+      <label class="lab">이미지 파일<input id="p-file" type="file" accept="image/*" required></label>
+      <label class="lab">제목 (선택)<input id="p-title" maxlength="60" placeholder="예: 주민설명회 안내"></label>
+      <label class="lab">클릭 시 이동할 주소 (선택)<input id="p-link" maxlength="300" placeholder="예: #notice 또는 https://..."></label>
+      <div class="btnrow"><button class="btn" type="submit" id="p-submit">팝업 등록</button><span id="p-msg" class="small muted"></span></div>
+    </form>
+    <div id="popup-admin-list" class="list" style="margin-top:14px"></div>
+  </div>
   <div id="notice-list" class="posts"><div class="empty">등록된 공지사항이 없습니다. 동의서 접수·설명회 일정 등이 여기에 올라옵니다.</div></div>
 </section>
 
@@ -310,6 +333,7 @@ footer .wrap{padding-block:18px 30px;display:flex;flex-direction:column;gap:4px}
 </section>
 
 </div></main>
+<div id="pop-overlay" class="pop-overlay" hidden role="dialog" aria-label="알림 팝업"></div>
 <footer><div class="wrap">
   <span>해운대 특별정비예정 8구역 예비주민대표단 · 부산광역시 해운대구 좌동 1271 신성아파트 관리사무소</span>
   <span>문의: 010-2554-8087 (노주석 예비대표)</span>
@@ -507,6 +531,55 @@ window.ADMIN_EMAILS = ["solahousesolaus@gmail.com"];
     catch(_){ say(m,"게시하지 못했습니다.","bad"); }
   });
 
+  /* ---------- popups ---------- */
+  state.popups=[]; let popupsShown=false;
+  const HIDE_KEY=id=>"hd8_pop_hide_"+id;
+  const isHidden=id=>{ try{ const v=localStorage.getItem(HIDE_KEY(id)); return v && Number(v)>Date.now(); }catch(_){ return false; } };
+  const hide7=id=>{ try{ localStorage.setItem(HIDE_KEY(id),String(Date.now()+7*864e5)); }catch(_){ } };
+  const safeLink=l=>{ l=String(l||"").trim(); return /^(https?:\/\/|#)/.test(l)? l:""; };
+  function showPopups(){
+    if(popupsShown) return; popupsShown=true;
+    const list=state.popups.slice(0,3).filter(p=>!isHidden(p.id)&&/^data:image\//.test(p.img||""));
+    const ov=$("#pop-overlay"); if(!list.length) return;
+    ov.innerHTML=list.map(p=>{ const link=safeLink(p.link); const img=`<img src="${esc(p.img)}" alt="${esc(p.title||"알림")}">`;
+      return `<div class="pop" data-pop="${p.id}">${link?`<a href="${esc(link)}" ${link.startsWith("#")?"data-pop-nav":'target="_blank" rel="noopener"'}>${img}</a>`:img}${p.title?`<div class="pop-title">${esc(p.title)}</div>`:""}<div class="pop-foot"><button type="button" data-pop-hide7="${p.id}">7일 동안 보지 않기</button><button type="button" data-pop-close="${p.id}">닫기</button></div></div>`; }).join("");
+    ov.hidden=false;
+  }
+  function closePop(id){ const el=document.querySelector(`[data-pop="${id}"]`); if(el) el.remove(); if(!document.querySelector("[data-pop]")) $("#pop-overlay").hidden=true; }
+  document.addEventListener("click",e=>{
+    const h=e.target.closest("[data-pop-hide7]"); if(h){ hide7(h.dataset.popHide7); closePop(h.dataset.popHide7); return; }
+    const c=e.target.closest("[data-pop-close]"); if(c){ closePop(c.dataset.popClose); return; }
+    const n=e.target.closest("[data-pop-nav]"); if(n){ const card=n.closest("[data-pop]"); if(card) closePop(card.dataset.pop); }
+  });
+  document.addEventListener("keydown",e=>{ if(e.key==="Escape"&&!$("#pop-overlay").hidden){ const f=document.querySelector("[data-pop]"); if(f) closePop(f.dataset.pop); } });
+  function renderPopupAdmin(){
+    const el=$("#popup-admin-list"); if(!el) return;
+    el.innerHTML=state.popups.length? state.popups.map((p,i)=>`<div class="pop-admin-item"><img src="${esc(p.img)}" alt=""><div style="min-width:0"><div style="font-weight:700">${esc(p.title||"(제목 없음)")}</div><div class="small muted">${fmt(p.createdAt)} · ${i<3?'<b style="color:var(--ok)">노출 중</b>':"미노출(밀림)"}</div></div><button class="btn danger" type="button" data-pop-del="${p.id}" style="padding:6px 12px">삭제</button></div>`).join("")
+      :'<div class="muted small">등록된 팝업이 없습니다.</div>';
+  }
+  document.addEventListener("click",async e=>{
+    const d=e.target.closest("[data-pop-del]"); if(!d||!state.admin) return;
+    if(d.dataset.armed!=="1"){ d.dataset.armed="1"; d.textContent="한 번 더 누르면 삭제"; return; }
+    await state.db.collection("popups").doc(d.dataset.popDel).delete().catch(()=>{});
+  });
+  function resizeImage(file){
+    return new Promise((res,rej)=>{ const fr=new FileReader(); fr.onerror=rej; fr.onload=()=>{ const im=new Image(); im.onerror=rej; im.onload=()=>{
+      const tryQ=(maxW,q)=>{ const s=Math.min(1,maxW/im.width); const c=document.createElement("canvas"); c.width=Math.round(im.width*s); c.height=Math.round(im.height*s);
+        const x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.drawImage(im,0,0,c.width,c.height); return c.toDataURL("image/jpeg",q); };
+      let out=tryQ(1080,.85); if(out.length>700000) out=tryQ(1080,.7); if(out.length>700000) out=tryQ(800,.7); if(out.length>700000) out=tryQ(640,.6);
+      out.length>900000? rej(new Error("too_big")):res(out); }; im.src=fr.result; }; fr.readAsDataURL(file); });
+  }
+  $("#popup-form").addEventListener("submit",async e=>{
+    e.preventDefault(); const m=$("#p-msg"), btn=$("#p-submit"), f=$("#p-file").files[0];
+    if(!f){ say(m,"이미지 파일을 선택하세요.","bad"); return; }
+    btn.disabled=true; say(m,"이미지 줄이는 중…");
+    try{ const img=await resizeImage(f); say(m,"올리는 중…");
+      await state.db.collection("popups").add({img,title:$("#p-title").value.trim(),link:safeLink($("#p-link").value),createdAt:Date.now()});
+      e.target.reset(); say(m,"등록되었습니다. 다음 접속부터 팝업으로 뜹니다.","ok");
+    }catch(err){ console.error(err); say(m, err&&err.message==="too_big"?"이미지가 너무 큽니다. 더 작은 이미지를 올려 주세요.":"등록하지 못했습니다.","bad"); }
+    btn.disabled=false;
+  });
+
   /* ---------- admin login ---------- */
   $("#admin-link").addEventListener("click",async e=>{
     e.preventDefault();
@@ -521,7 +594,7 @@ window.ADMIN_EMAILS = ["solahousesolaus@gmail.com"];
 
   function applyRole(){
     const admin=state.admin;
-    $("#notice-admin").hidden=!admin; $("#faq-admin").hidden=!admin;
+    $("#notice-admin").hidden=!admin; $("#faq-admin").hidden=!admin; $("#popup-admin").hidden=!admin;
     $("#admin-link").textContent=admin?"관리자 로그아웃":"관리자 로그인";
     $("#admin-who").textContent=admin?`(${state.email})`:"";
     Object.values(unsub).forEach(u=>u&&u()); for(const k in unsub) delete unsub[k];
@@ -529,6 +602,7 @@ window.ADMIN_EMAILS = ["solahousesolaus@gmail.com"];
     unsub.stats=db.collection("stats").onSnapshot(s=>{ state.stats=docs(s); renderStats(); },console.error);
     unsub.notices=db.collection("notices").onSnapshot(s=>{ state.notices=docs(s); renderNotices(); },console.error);
     unsub.faq=db.collection("faq").onSnapshot(s=>{ state.faq=docs(s); renderFaq(); },console.error);
+    unsub.popups=db.collection("popups").orderBy("createdAt","desc").limit(admin?20:3).onSnapshot(s=>{ state.popups=docs(s); renderPopupAdmin(); if(!admin) showPopups(); },console.error);
     unsub.posts=db.collection("posts").orderBy("createdAt","desc").onSnapshot(s=>{ state.posts=docs(s); renderList(); },console.error);
     if(admin) unsub.drafts=db.collection("faq_drafts").onSnapshot(s=>{ state.drafts=docs(s); renderDrafts(); },console.error); else state.drafts=[];
     renderDrafts();
